@@ -6,7 +6,7 @@
 
 `FEEL THE BEAT · BREAK THE LIMIT`
 
-[شروع بازی](https://tahadev24.github.io/NEON-OVERDRIVE/) · [گزارش مشکل](https://github.com/TahaDev24/NEON-OVERDRIVE/issues) · [توسعه‌دهنده](https://github.com/TahaDev24)
+[گزارش مشکل](https://github.com/TahaDev24/NEON-OVERDRIVE/issues) · [توسعه‌دهنده](https://github.com/TahaDev24)
 
 </div>
 
