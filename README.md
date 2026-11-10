@@ -2,83 +2,83 @@
 
 # NEON OVERDRIVE
 
-**بازی پلتفرمر ریتمیک تحت وب با هشت جهان، موسیقی تولیدشده با کد و هیچ وابستگی خارجی**
+**A browser-based rhythm platformer with eight worlds, code-generated music, and no external dependencies**
 
 `FEEL THE BEAT · BREAK THE LIMIT`
 
-[گزارش مشکل](https://github.com/TahaDev24/NEON-OVERDRIVE/issues) · [توسعه‌دهنده](https://github.com/TahaDev24)
+[Report an Issue](https://github.com/TahaDev24/NEON-OVERDRIVE/issues) · [Developer](https://github.com/TahaDev24)
 
 </div>
 
 ---
 
-## فهرست
+## Table of Contents
 
-- [معرفی](#معرفی)
-- [در یک نگاه](#در-یک-نگاه)
-- [نحوه بازی](#نحوه-بازی)
-- [جهان‌ها](#جهانها)
-- [سیستم صدا](#سیستم-صدا)
-- [شخصیت‌ها و فروشگاه](#شخصیتها-و-فروشگاه)
-- [پیشرفت و ذخیره‌سازی](#پیشرفت-و-ذخیرهسازی)
-- [تنظیمات](#تنظیمات)
-- [کنترل](#کنترل)
-- [معماری فنی](#معماری-فنی)
-- [ساختار مخزن](#ساختار-مخزن)
-- [اجرا و انتشار](#اجرا-و-انتشار)
-- [عیب‌یابی](#عیبیابی)
-- [سازگاری](#سازگاری)
-- [توسعه‌دهنده](#توسعهدهنده)
-
----
-
-## معرفی
-
-NEON OVERDRIVE یک بازی پلتفرمر ریتمیک کامل است که داخل مرورگر اجرا می‌شود و فقط با فناوری‌های استاندارد وب ساخته شده. بازیکن در نقش یک شخصیت دیجیتالی از میان هشت جهان نئونی عبور می‌کند، با زمان‌بندی دقیق می‌پرد، از موانع رد می‌شود و سکه جمع می‌کند.
-
-هدف پروژه این بود که یک تجربه بازی مستقل و چندبخشی بدون موتور بازی‌سازی، بدون کتابخانه خارجی و بدون سرور ساخته شود. تصویر بازی روی Canvas رسم می‌شود، موسیقی و افکت‌ها لحظه‌ای با Web Audio API تولید می‌شوند و پیشرفت بازیکن در خود مرورگر ذخیره می‌شود. یعنی هیچ فایل صوتی، تصویری یا فریم‌ورکی در کار نیست و همه‌چیز با کد نوشته شده.
+- [Introduction](#introduction)
+- [At a Glance](#at-a-glance)
+- [How to Play](#how-to-play)
+- [Worlds](#worlds)
+- [Audio System](#audio-system)
+- [Characters and Store](#characters-and-store)
+- [Progress and Saving](#progress-and-saving)
+- [Settings](#settings)
+- [Controls](#controls)
+- [Technical Architecture](#technical-architecture)
+- [Repository Structure](#repository-structure)
+- [Running and Deployment](#running-and-deployment)
+- [Troubleshooting](#troubleshooting)
+- [Compatibility](#compatibility)
+- [Developer](#developer)
 
 ---
 
-## در یک نگاه
+## Introduction
 
-| مورد | مقدار |
+NEON OVERDRIVE is a complete rhythm platformer that runs in a web browser and is built entirely with standard web technologies. Players take control of a digital character and travel through eight neon worlds, jumping with precise timing, avoiding obstacles, and collecting coins.
+
+The goal of this project was to create a standalone, multi-part gaming experience without a game engine, external libraries, or a server. The game is rendered on Canvas, music and sound effects are generated in real time with the Web Audio API, and player progress is saved in the browser itself. There are no ready-made audio or image assets or external frameworks; everything is written in code.
+
+---
+
+## At a Glance
+
+| Item | Value |
 |---|---|
-| تعداد جهان‌ها | ۸ |
-| تعداد شخصیت‌ها | ۱۲ |
-| وابستگی خارجی | ندارد |
-| فایل صوتی آماده | ندارد |
-| نیاز به سرور | ندارد |
-| نیاز به نصب یا کامپایل | ندارد |
-| زبان رابط | فارسی |
-| پلتفرم | مرورگر رایانه و موبایل |
-| رندر | HTML5 Canvas 2D |
-| صدا | Web Audio API |
-| ذخیره‌سازی | Local Storage |
-| زبان برنامه‌نویسی | JavaScript خالص (Vanilla) |
+| Number of worlds | 8 |
+| Number of characters | 12 |
+| External dependencies | None |
+| Pre-made audio files | None |
+| Server required | No |
+| Installation or compilation required | No |
+| Interface language | Persian |
+| Platform | Desktop and mobile browsers |
+| Rendering | HTML5 Canvas 2D |
+| Audio | Web Audio API |
+| Storage | Local Storage |
+| Programming language | Vanilla JavaScript |
 
 ---
 
-## نحوه بازی
+## How to Play
 
-بازی بر پایه یک کنترل ساده ساخته شده: **پرش**. سختی بازی از جای دیگری می‌آید، یعنی زمان‌بندی.
+The game is built around one simple control: **jump**. The challenge comes from timing.
 
-1. یک جهان را انتخاب می‌کنید و مرحله شروع می‌شود.
-2. شخصیت به‌صورت خودکار جلو می‌رود و سرعت آن بر اساس جهان تعیین می‌شود.
-3. موانع روی مسیر ظاهر می‌شوند و باید با پرش در لحظه درست از آن‌ها عبور کنید.
-4. سکه‌های روی مسیر را جمع می‌کنید تا امتیاز و موجودی شما بالا برود.
-5. برخورد با مانع مرحله را تمام می‌کند و امتیاز و رکورد شما ثبت می‌شود.
-6. با سکه‌هایی که جمع کرده‌اید می‌توانید در فروشگاه شخصیت‌های جدید آزاد کنید.
+1. Select a world to start a level.
+2. The character moves forward automatically, with speed determined by the selected world.
+3. Obstacles appear along the path. Jump at the right moment to avoid them.
+4. Collect coins along the way to increase your score and balance.
+5. Hitting an obstacle ends the level, and your score and record are saved.
+6. Use the coins you collect to unlock new characters in the store.
 
-هر جهان چیدمان موانع، سرعت و حال‌وهوای خودش را دارد، پس تسلط بر یک جهان به شما در جهان بعدی کمک نمی‌کند و باید ریتم جدید را یاد بگیرید.
+Each world has its own obstacle layout, speed, and atmosphere. Mastering one world does not automatically prepare you for the next; you need to learn its new rhythm.
 
 ---
 
-## جهان‌ها
+## Worlds
 
-بازی هشت جهان دارد. هر جهان هویت بصری، پالت رنگی، سرعت پایه، تم موسیقی و چیدمان موانع مخصوص به خودش را دارد.
+The game features eight worlds. Each one has its own visual identity, color palette, base speed, music theme, and obstacle layout.
 
-| # | جهان | عنوان فارسی |
+| # | World | Persian Title |
 |:---:|---|---|
 | 01 | NEON CITY | شهر نئونی |
 | 02 | CYBER STORM | طوفان سایبری |
@@ -89,186 +89,200 @@ NEON OVERDRIVE یک بازی پلتفرمر ریتمیک کامل است که د
 | 07 | QUANTUM ABYSS | ژرفای کوانتومی |
 | 08 | NOVA ASCENSION | صعود نُوا |
 
-### 01 · NEON CITY (شهر نئونی)
-نقطه شروع بازی و معرفی حال‌وهوای اصلی آن: خیابان‌ها و ساختمان‌های شهری با نورهای نئونی. این جهان برای یادگیری کنترل و حس ریتم طراحی شده است.
+### 01 · NEON CITY
 
-### 02 · CYBER STORM (طوفان سایبری)
-فضایی دیجیتال و پرتنش با جلوه‌های طوفانی و رنگ‌های سرد. تمرکز این جهان روی عبور از مسیرهایی است که واکنش سریع‌تری می‌خواهند.
+The starting point of the game and an introduction to its main atmosphere: city streets and buildings illuminated by neon lights. This world is designed to teach the controls and rhythm.
 
-### 03 · VOLCANIC RUSH (خروش آتشفشان)
-جهانی گرم با رنگ‌های آتشین و حس فشار و شتاب. پالت و موسیقی این بخش انرژی بالاتری نسبت به دو جهان اول دارد.
+### 02 · CYBER STORM
 
-### 04 · GRAVITY BREAK (شکست جاذبه)
-فضایی که حس سبکی و ناپایداری را منتقل می‌کند. طراحی بصری و موسیقی این جهان با حال‌وهوای معلق و غیرعادی ساخته شده است.
+A digital, high-pressure environment with storm-like effects and cool colors. This world focuses on navigating paths that require faster reactions.
 
-### 05 · INFINITY CORE (هسته بی‌نهایت)
-مرکز انرژی بازی با طراحی تکرارشونده و هیپنوتیزم‌گونه. ریتم این جهان بازیکن را وارد یک جریان پیوسته می‌کند.
+### 03 · VOLCANIC RUSH
 
-### 06 · SKYLINE RIFT (شکاف آسمان)
-جهانی در ارتفاع بالا با افق وسیع و شکاف‌های نورانی. حال‌وهوای آن بازتر و در عین حال چالشی‌تر است.
+A warm world with fiery colors and a sense of pressure and speed. Its palette and music bring more energy than the first two worlds.
 
-### 07 · QUANTUM ABYSS (ژرفای کوانتومی)
-عمیق‌ترین و تیره‌ترین فضای بازی با رنگ‌بندی ژرف و جلوه‌های انرژی. این جهان تمرکز و دقت بالایی می‌طلبد.
+### 04 · GRAVITY BREAK
 
-### 08 · NOVA ASCENSION (صعود نُوا)
-جهان پایانی و اوج مسیر بازی. ترکیب تمام تجربه‌های قبلی در قالب یک صعود پرانرژی.
+An environment that conveys a sense of weightlessness and instability. The visual design and music create a suspended and unusual atmosphere.
+
+### 05 · INFINITY CORE
+
+The game's energy center, with a repetitive and hypnotic design. The rhythm draws players into a continuous flow.
+
+### 06 · SKYLINE RIFT
+
+A high-altitude world with a wide horizon and glowing rifts. Its atmosphere feels more open while remaining challenging.
+
+### 07 · QUANTUM ABYSS
+
+The deepest and darkest environment in the game, with deep colors and energy effects. This world requires strong focus and precision.
+
+### 08 · NOVA ASCENSION
+
+The final world and the peak of the journey. It combines the experiences of all previous worlds into an energetic ascent.
 
 ---
 
-## سیستم صدا
+## Audio System
 
-تمام صداهای بازی با **Web Audio API** و در لحظه تولید می‌شوند. هیچ فایل MP3 یا WAV در پروژه وجود ندارد، پس بار اولیه سبک است و همه‌چیز با کد قابل تغییر است.
+All game audio is generated in real time using the **Web Audio API**. The project contains no MP3 or WAV files, which keeps the initial load lightweight and makes the audio fully adjustable through code.
 
-### لایه‌های صدا
+### Audio Layers
 
-| لایه | کاربرد |
+| Layer | Purpose |
 |---|---|
-| موسیقی جهان | یک تم موسیقی اختصاصی برای هر یک از هشت جهان |
-| افکت‌های گیم‌پلی | صدای پرش، جمع کردن سکه و برخورد |
-| افکت‌های رابط | صدای کلیک و تعامل با منوها، فروشگاه و تنظیمات |
-| مقدمه سینمایی | صدای اختصاصی سکانس آغازین |
+| World music | A dedicated music theme for each of the eight worlds |
+| Gameplay effects | Jumping, collecting coins, and collisions |
+| Interface effects | Clicks and interactions with menus, the store, and settings |
+| Cinematic intro | Dedicated audio for the opening sequence |
 
-### نحوه تولید صدا
+### How Audio Is Generated
 
-- صداها با **نوسان‌سازها (Oscillator)** ساخته می‌شوند.
-- شکل و شدت هر صدا با **Gain** و پوش‌های زمانی کنترل می‌شود.
-- موسیقی هر جهان از ترکیب نوت‌ها و الگوهای ریتمیک ساخته می‌شود و با ریتم بازی هماهنگ است.
-- کنترل صدا کاملاً دست بازیکن است و موسیقی و افکت‌ها جداگانه تنظیم می‌شوند.
+- Sounds are created using **oscillators**.
+- The shape and intensity of each sound are controlled with **Gain** and time-based envelopes.
+- Each world's music is built from combinations of notes and rhythmic patterns that match the game's rhythm.
+- Players can control audio independently, adjusting music and sound effects separately.
 
-### نکته مرورگر
-مرورگرهای مدرن اجازه شروع صدا را قبل از اولین تعامل کاربر نمی‌دهند. به همین دلیل صدا بعد از اولین لمس یا کلیک شروع می‌شود و این رفتار طبیعی است.
+### Browser Note
 
----
-
-## شخصیت‌ها و فروشگاه
-
-بازی ۱۲ شخصیت قابل انتخاب دارد. هر شخصیت یک پوسته مستقل با طراحی و رنگ‌بندی اختصاصی است.
-
-- شخصیت‌ها فقط ظاهر را تغییر می‌دهند و بر سختی بازی اثر ندارند.
-- شخصیت‌های ویژه با **سکه‌هایی که در مراحل جمع می‌کنید** از فروشگاه داخلی آزاد می‌شوند.
-- شخصیت آزادشده برای همیشه ذخیره می‌شود و می‌توانید هر زمان آن را انتخاب کنید.
-- آخرین شخصیت انتخاب‌شده در دفعه بعد ورود هم فعال می‌ماند.
+Modern browsers do not allow audio to start before the user's first interaction. Therefore, audio begins after the first tap or click. This is normal browser behavior.
 
 ---
 
-## پیشرفت و ذخیره‌سازی
+## Characters and Store
 
-اطلاعات بازیکن با **Local Storage** در مرورگر ذخیره می‌شود. نیازی به حساب کاربری، ثبت‌نام یا اینترنت نیست.
+The game includes 12 selectable characters. Each character has an independent visual design and color scheme.
 
-ذخیره می‌شود:
-
-- بهترین امتیاز
-- رکوردهای مراحل
-- موجودی سکه‌ها
-- شخصیت‌های آزادشده
-- شخصیت انتخاب‌شده
-- تنظیمات صدا و گرافیک
-
-### چیزهایی که باید بدانید
-
-- اطلاعات فقط روی همان مرورگر و همان دستگاه نگه‌داری می‌شود.
-- پاک کردن داده‌های مرورگر یا حالت ناشناس باعث از بین رفتن پیشرفت می‌شود.
-- پیشرفت بین دو دستگاه یا دو مرورگر منتقل نمی‌شود.
+- Characters change appearance only; they do not affect game difficulty.
+- Special characters can be unlocked in the in-game store using **coins collected during levels**.
+- Unlocked characters remain available permanently and can be selected at any time.
+- The last selected character remains active the next time the game is opened.
 
 ---
 
-## تنظیمات
+## Progress and Saving
 
-| تنظیم | توضیح |
+Player data is saved in the browser using **Local Storage**. No account, registration, or internet connection is required.
+
+The following data is saved:
+
+- Best score
+- Level records
+- Coin balance
+- Unlocked characters
+- Selected character
+- Audio and graphics settings
+
+### Things to Know
+
+- Data is stored only in the same browser and on the same device.
+- Clearing browser data or using private browsing may erase progress.
+- Progress is not synchronized between devices or different browsers.
+
+---
+
+## Settings
+
+| Setting | Description |
 |---|---|
-| موسیقی | کم و زیاد کردن یا خاموش کردن موسیقی جهان‌ها |
-| افکت صوتی | کنترل جداگانه صدای پرش، سکه و رابط |
-| کیفیت نمایش | تنظیم کیفیت برای اجرای روان‌تر روی دستگاه‌های ضعیف‌تر |
-| شدت جلوه‌ها | کم یا زیاد کردن جلوه‌های نوری و نئونی |
+| Music | Adjust or disable world music |
+| Sound effects | Independently control jump, coin, and interface sounds |
+| Display quality | Adjust quality for smoother performance on less powerful devices |
+| Effect intensity | Increase or reduce lighting and neon effects |
 
-تنظیمات به‌صورت خودکار ذخیره می‌شوند.
+Settings are saved automatically.
 
 ---
 
-## کنترل
+## Controls
 
-| عملکرد | رایانه | موبایل |
+| Action | Desktop | Mobile |
 |---|---|---|
-| پرش | `Space` یا `↑` یا `W` | لمس صفحه یا دکمه پرش |
-| مکث | `Esc` یا `P` | دکمه مکث |
-| ادامه | `Esc` یا `P` | دکمه ادامه |
+| Jump | `Space`, `↑`, or `W` | Tap the screen or the jump button |
+| Pause | `Esc` or `P` | Pause button |
+| Resume | `Esc` or `P` | Resume button |
 
 ---
 
-## معماری فنی
+## Technical Architecture
 
-پروژه سه لایه جدا دارد که هر کدام در یک فایل نگهداری می‌شود.
+The project has three separate layers, each maintained in its own file.
 
 ### HTML (`index.html`)
-ساختار صفحه‌ها و رابط کاربری: منوی اصلی، انتخاب جهان، فروشگاه، تنظیمات، صفحه مکث و بوم بازی.
+
+Page structure and user interface: main menu, world selection, store, settings, pause screen, and game canvas.
 
 ### CSS (`css/style.css`)
-ظاهر نئونی، انیمیشن‌ها، انتقال بین صفحه‌ها و چیدمان واکنش‌گرا برای اندازه‌های مختلف نمایشگر.
+
+Neon appearance, animations, transitions between screens, and responsive layouts for different display sizes.
 
 ### JavaScript (`js/game.js`)
-منطق کامل بازی که شامل بخش‌های زیر است:
 
-| بخش | وظیفه |
+The complete game logic, including the following components:
+
+| Component | Responsibility |
 |---|---|
-| مدیریت وضعیت | کنترل صفحه‌ها و حالت‌های بازی (منو، بازی، مکث، پایان) |
-| حلقه بازی | به‌روزرسانی و رسم فریم‌ها با `requestAnimationFrame` |
-| فیزیک شخصیت | حرکت، پرش و گرانش |
-| برخورد | تشخیص برخورد با موانع و سکه‌ها |
-| مراحل | چیدمان موانع و تنظیمات هر جهان |
-| امتیازدهی | محاسبه امتیاز، سکه و رکورد |
-| ورودی | صفحه‌کلید و لمس |
-| صدا | تولید موسیقی و افکت‌ها با Web Audio API |
-| ذخیره‌سازی | خواندن و نوشتن اطلاعات در Local Storage |
+| State management | Controls screens and game states (menu, gameplay, pause, end) |
+| Game loop | Updates and renders frames with `requestAnimationFrame` |
+| Character physics | Movement, jumping, and gravity |
+| Collision detection | Detects collisions with obstacles and coins |
+| Levels | Obstacle layouts and settings for each world |
+| Scoring | Calculates scores, coins, and records |
+| Input | Keyboard and touch controls |
+| Audio | Generates music and effects with the Web Audio API |
+| Storage | Reads and writes data in Local Storage |
 
-### رندر
-تمام عناصر بازی (شخصیت، موانع، پس‌زمینه، سکه‌ها و جلوه‌ها) مستقیماً روی **Canvas 2D** رسم می‌شوند. این روش کنترل کامل روی هر فریم می‌دهد.
+### Rendering
+
+All game elements (character, obstacles, background, coins, and effects) are drawn directly onto **Canvas 2D**. This provides full control over every frame.
 
 ---
 
-## ساختار مخزن
+## Repository Structure
 
 ```text
 NEON-OVERDRIVE/
-├── index.html        # ساختار رابط و صفحه‌ها
+├── index.html        # Interface structure and pages
 ├── css/
-│   └── style.css     # ظاهر، انیمیشن‌ها و واکنش‌گرایی
+│   └── style.css     # Appearance, animations, and responsiveness
 ├── js/
-│   └── game.js       # منطق بازی، رندر و صدا
-└── README.md         # مستندات پروژه
+│   └── game.js       # Game logic, rendering, and audio
+└── README.md         # Project documentation
 ```
 
-| فایل | مسئولیت |
+| File | Responsibility |
 |---|---|
-| `index.html` | تغییر ساختار و اجزای رابط |
-| `css/style.css` | تغییر طراحی و جلوه‌های بصری |
-| `js/game.js` | تغییر منطق، مراحل و صدا |
+| `index.html` | Modify the interface structure and components |
+| `css/style.css` | Modify the design and visual effects |
+| `js/game.js` | Modify game logic, levels, and audio |
 
 ---
 
-## اجرا و انتشار
+## Running and Deployment
 
-### اجرای مستقیم
-مخزن را دانلود کنید و فایل `index.html` را در یک مرورگر مدرن باز کنید.
+### Run Directly
 
-### اجرای محلی با وب‌سرور
+Download the repository and open `index.html` in a modern browser.
+
+### Run Locally with a Web Server
 
 ```bash
 python -m http.server 8000
 ```
 
-بعد این آدرس را باز کنید:
+Then open:
 
 ```text
 http://localhost:8000
 ```
 
-### انتشار روی GitHub Pages
+### Deploy with GitHub Pages
 
-1. وارد **Settings** مخزن شوید.
-2. بخش **Pages** را باز کنید.
-3. در قسمت Branch گزینه `main` و پوشه `/ (root)` را انتخاب کنید.
-4. روی **Save** بزنید.
-5. چند دقیقه بعد بازی در این آدرس در دسترس است:
+1. Open the repository's **Settings**.
+2. Open the **Pages** section.
+3. Under Branch, select `main` and the `/ (root)` folder.
+4. Click **Save**.
+5. After a few minutes, the game will be available at:
 
 ```text
 https://tahadev24.github.io/NEON-OVERDRIVE/
@@ -276,34 +290,34 @@ https://tahadev24.github.io/NEON-OVERDRIVE/
 
 ---
 
-## عیب‌یابی
+## Troubleshooting
 
-| مشکل | راه‌حل |
+| Problem | Solution |
 |---|---|
-| صدا پخش نمی‌شود | یک بار روی صفحه کلیک یا لمس کنید و مطمئن شوید صدای دستگاه و تنظیمات بازی خاموش نیست |
-| بازی کند اجرا می‌شود | کیفیت نمایش و شدت جلوه‌ها را از تنظیمات کم کنید |
-| پیشرفت پاک شده | احتمالاً داده‌های مرورگر پاک شده یا در حالت ناشناس بازی کرده‌اید |
-| استایل یا اسکریپت لود نمی‌شود | مطمئن شوید پوشه‌های `css` و `js` کنار `index.html` هستند و اسم فایل‌ها دقیقاً درست است |
+| No audio | Click or tap the screen once and make sure device audio and in-game audio settings are enabled |
+| The game runs slowly | Reduce display quality and effect intensity in settings |
+| Progress was erased | Browser data may have been cleared, or the game may have been played in private browsing mode |
+| Stylesheet or script does not load | Make sure the `css` and `js` folders are next to `index.html` and the filenames match exactly |
 
 ---
 
-## سازگاری
+## Compatibility
 
-بازی برای مرورگرهای مدرن که از HTML5 Canvas، Web Audio API و Local Storage پشتیبانی می‌کنند طراحی شده و با صفحه‌کلید و لمس کار می‌کند. چیدمان رابط برای نمایشگرهای موبایل و رایانه تنظیم می‌شود.
+The game is designed for modern browsers that support HTML5 Canvas, the Web Audio API, and Local Storage. It supports keyboard and touch input, and the interface layout adapts to mobile and desktop displays.
 
 ---
 
-## توسعه‌دهنده
+## Developer
 
 | | |
 |---|---|
-| نام | طاها حصارکی (Taha Hesaraki) |
-| گیت‌هاب | [TahaDev24](https://github.com/TahaDev24) |
-| پروژه | NEON OVERDRIVE |
-| معماری | Client-Side |
+| Name | Taha Hassarki |
+| GitHub | [TahaDev24](https://github.com/TahaDev24) |
+| Project | NEON OVERDRIVE |
+| Architecture | Client-Side |
 
 > [!NOTE]
-> در توسعه این پروژه از ابزارهای هوش مصنوعی به‌عنوان دستیار استفاده شده است.
+> AI tools were used as assistants during the development of this project.
 
 <div align="center">
 
