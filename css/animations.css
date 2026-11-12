@@ -1,0 +1,15 @@
+@keyframes screenIn{from{opacity:0}to{opacity:1}}
+@keyframes introExit{to{opacity:0;transform:scale(1.08);visibility:hidden}}
+@keyframes vignettePulse{0%,100%{opacity:.7}45%{opacity:1}}
+@keyframes gridRush{0%{opacity:0;transform:perspective(260px) rotateX(62deg) translateY(80px)}35%,100%{opacity:.65;transform:perspective(260px) rotateX(62deg) translateY(0)}}
+@keyframes beamSweep{0%{opacity:0;translate:-80px 0}25%{opacity:.8}100%{opacity:0;translate:180px 0}}
+@keyframes orbitForm{to{opacity:.8;transform:scale(1) rotateX(68deg)}}
+@keyframes orbitSpin{to{rotate:360deg}}
+@keyframes coreIgnite{0%{opacity:0;transform:scale(.05) rotate(90deg);filter:brightness(4)}65%{opacity:1;filter:brightness(2)}100%{opacity:.78;transform:scale(1) rotate(0);filter:brightness(1)}}
+@keyframes coreBeat{to{transform:scale(1.15);box-shadow:0 0 55px 20px #b8faff}}
+@keyframes copyReveal{to{opacity:1;transform:translateY(0)}}
+@keyframes ruleCharge{to{transform:scaleX(1)}}
+@keyframes loadCharge{to{transform:scaleX(1)}}
+@keyframes fadeUp{to{opacity:1}}
+@keyframes shardFly{0%{opacity:0;translate:0 35px;scale:.4}20%{opacity:.9}100%{opacity:0;translate:var(--dx) -150px;scale:1.2}}
+@keyframes logoGlitch{0%,92%,100%{filter:none;translate:0}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
