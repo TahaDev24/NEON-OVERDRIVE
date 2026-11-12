@@ -1,0 +1,26 @@
+:root{--bg:#050711;--panel:#0b1020;--panel2:#111a30;--line:#263956;--cyan:#66f4ff;--pink:#ff4fbb;--violet:#a17bff;--gold:#ffd477;--muted:#91a2c4;--text:#edf5ff;--danger:#ff557d;--safe:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:Tahoma,"Segoe UI",system-ui,sans-serif}
+.primary{border:0;background:linear-gradient(105deg,#08afc2,#6553e9 58%,#bd3b9e);box-shadow:0 8px 30px #4e43d044;font-weight:900}
+.secondary{background:#111b30;border-color:#394d70}
+.danger{border-color:#8a425d;color:#ffd4e1}
+.gold{border-color:#8e713d;color:#ffe2a1}
+.tiny{min-height:34px;padding:7px 10px;font-size:11px}
+.muted{color:var(--muted)}
+#jumpButton,#pulseButton{pointer-events:auto;touch-action:none;border-radius:18px;min-height:64px;box-shadow:0 0 28px #4ae5ff30;background:linear-gradient(145deg,#182c4dcc,#0a1832dd);backdrop-filter:blur(7px);font-weight:1000;letter-spacing:1px}
+#jumpButton{width:132px;border-color:#66f4ff88}
+#pulseButton{width:94px;border-color:#ff65ba88;color:#ffd8ec;display:none}
+#pulseButton.visible{display:block}
+.big-button{min-width:190px;min-height:52px;font-size:15px;letter-spacing:1px}
+.select-card{border:1px solid #314465;border-radius:14px;padding:10px 6px;background:linear-gradient(145deg,#14213a,#091326);text-align:center;cursor:pointer}
+.select-card.selected{border-color:var(--cyan);box-shadow:0 0 18px #66f4ff2b}
+.select-card b{display:block;font-size:10px;margin-bottom:4px}
+.select-card small{display:block;font-size:8px;line-height:1.6;color:#9aaccc}
+.checkline{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.checkline input{width:19px;height:19px;accent-color:var(--cyan)}
+.hint{font-size:10px;color:#8da2c4;line-height:2;margin-top:13px}
+.hidden{display:none!important}
+.beam-a{left:25%}
+.beam-b{right:24%;animation-delay:1.05s;transform:rotate(-28deg);background:linear-gradient(transparent,#ff3ec9,#fff,#54f7ff,transparent)}
+.orbit-two{width:min(49vw,420px);border-color:#ff3ec988;box-shadow:0 0 30px #ff3ec933;animation-delay:.62s,2.6s;animation-duration:2.2s,13s;transform:scale(.12) rotateY(65deg)}
+.orbit-three{width:min(82vw,700px);border-style:dashed;border-color:#b58cff66;animation-delay:.9s,2.6s;animation-duration:2s,26s}
