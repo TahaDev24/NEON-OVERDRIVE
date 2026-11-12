@@ -3,7 +3,6 @@ export class AudioEngine{
  constructor({getState,getGame,zones}){this.getState=getState;this.getGame=getGame;this.zones=zones;this.ctx=null;this.master=null;this.fx=null;this.timer=null;this.zoneIndex=-1;this.step=0;this.next=0;this.bossMode=false}
  get state(){return this.getState()}
  get game(){return this.getGame()}
- constructor(){this.ctx=null;this.master=null;this.fx=null;this.timer=null;this.zoneIndex=-1;this.step=0;this.next=0;this.bossMode=false}
  init(){if(this.ctx)return;const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;try{this.ctx=new AC();this.master=this.ctx.createGain();this.master.gain.value=this.state.settings.music?this.state.settings.volume/100:0;this.master.connect(this.ctx.destination);this.fx=this.ctx.createGain();this.fx.gain.value=.72;this.fx.connect(this.ctx.destination)}catch(e){this.ctx=null}}
  start(i){this.init();if(!this.ctx)return;this.ctx.resume().catch(()=>{});if(this.timer)clearInterval(this.timer);this.zoneIndex=i;this.bossMode=false;this.step=0;this.next=this.ctx.currentTime+.07;this.master.gain.setTargetAtTime(this.state.settings.music?this.state.settings.volume/100:0,this.ctx.currentTime,.06);this.timer=setInterval(()=>this.schedule(),25)}
  schedule(){if(!this.ctx||!this.game.running||this.game.paused||!this.state.settings.music)return;const z=this.zones[this.zoneIndex];if(!z)return;const beat=60/z.bpm,stepDur=beat/2,horizon=this.ctx.currentTime+.13;while(this.next<horizon){this.playStep(this.step,this.next,z);this.next+=stepDur;this.step=(this.step+1)%16}}
