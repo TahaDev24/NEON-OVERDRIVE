@@ -1,327 +1,174 @@
+<!--
+  NEON OVERDRIVE — NEXT GEN
+  Developed by Taha Hassarki
+-->
+
 <div align="center">
 
-# NEON OVERDRIVE
+# ⚡ NEON OVERDRIVE
 
-**A browser-based rhythm platformer with eight worlds, code-generated music, and no external dependencies**
+### NEXT GEN · RHYTHM PLATFORMER
+
+**A neon-powered rhythm platformer built with pure HTML, CSS and JavaScript.**
+
+<br>
 
 `FEEL THE BEAT · BREAK THE LIMIT`
 
-[Report an Issue](https://github.com/TahaDev24/NEON-OVERDRIVE/issues) · [Developer](https://github.com/TahaDev24)
+<br>
+
+[▶ Play the Game](https://tahadev24.github.io/NEON-OVERDRIVE/) ·
+[Source Code](https://github.com/TahaDev24/NEON-OVERDRIVE) ·
+[Report an Issue](https://github.com/TahaDev24/NEON-OVERDRIVE/issues)
+
+<br>
+
+![HTML5](https://img.shields.io/badge/HTML5-Structure-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-Visuals-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-Game%20Logic-F7DF1E?style=for-the-badge&logo=javascript&logoColor=111111)
+![Dependencies](https://img.shields.io/badge/Dependencies-None-35C98A?style=for-the-badge)
 
 </div>
 
 ---
 
-## Table of Contents
+## ✦ About the Game
 
-- [Introduction](#introduction)
-- [At a Glance](#at-a-glance)
-- [How to Play](#how-to-play)
-- [Worlds](#worlds)
-- [Audio System](#audio-system)
-- [Characters and Store](#characters-and-store)
-- [Progress and Saving](#progress-and-saving)
-- [Settings](#settings)
-- [Controls](#controls)
-- [Technical Architecture](#technical-architecture)
-- [Repository Structure](#repository-structure)
-- [Running and Deployment](#running-and-deployment)
-- [Troubleshooting](#troubleshooting)
-- [Compatibility](#compatibility)
-- [Developer](#developer)
+**NEON OVERDRIVE — NEXT GEN** is a browser-based rhythm platformer focused on timing, movement and precision. Guide your character through a sequence of neon environments, avoid hazards, collect coins, unlock content and work your way toward the final challenge.
 
----
+The project is built with standard web technologies rather than a heavyweight game engine. Its interface, visual effects, gameplay systems and audio are implemented directly in the project.
 
-## Introduction
+> This repository contains the current **10-zone NEXT GEN build**. It replaces the older eight-world documentation and layout.
 
-NEON OVERDRIVE is a complete rhythm platformer that runs in a web browser and is built entirely with standard web technologies. Players take control of a digital character and travel through eight neon worlds, jumping with precise timing, avoiding obstacles, and collecting coins.
+## ◈ Core Features
 
-The goal of this project was to create a standalone, multi-part gaming experience without a game engine, external libraries, or a server. The game is rendered on Canvas, music and sound effects are generated in real time with the Web Audio API, and player progress is saved in the browser itself. There are no ready-made audio or image assets or external frameworks; everything is written in code.
+- **10 playable zones** with distinct progression and visual atmosphere.
+- **Rhythm-based platforming** built around precise jumps and obstacle timing.
+- **Boss encounter** with multiple phases as a major progression challenge.
+- **Coin and unlock systems** for in-game rewards and customization.
+- **Checkpoints and progression** to support longer runs.
+- **Procedural audio** generated in the browser with the Web Audio API.
+- **Intro sequence and animated interface** with a neon visual identity.
+- **Local progress storage** so supported game progress remains on the device.
+- **Keyboard and touch input** for desktop and mobile browsers.
+- **No external game engine or runtime library.**
 
----
+## 🎮 Gameplay
 
-## At a Glance
+1. Open the game and enter the zone selection screen.
+2. Choose an available zone and start the run.
+3. Time your jumps to pass obstacles and collect coins.
+4. Reach checkpoints and progress through the zone sequence.
+5. Complete the required stages to unlock later content.
+6. Prepare for the final boss encounter.
 
-| Item | Value |
-|---|---|
-| Number of worlds | 8 |
-| Number of characters | 12 |
-| External dependencies | None |
-| Pre-made audio files | None |
-| Server required | No |
-| Installation or compilation required | No |
-| Interface language | Persian |
-| Platform | Desktop and mobile browsers |
-| Rendering | HTML5 Canvas 2D |
-| Audio | Web Audio API |
-| Storage | Local Storage |
-| Programming language | Vanilla JavaScript |
+Previously completed zones can be replayed without paying an entry fee. Some optional unlocks may still use in-game currency.
 
----
+## 🧭 Project Structure
 
-## How to Play
-
-The game is built around one simple control: **jump**. The challenge comes from timing.
-
-1. Select a world to start a level.
-2. The character moves forward automatically, with speed determined by the selected world.
-3. Obstacles appear along the path. Jump at the right moment to avoid them.
-4. Collect coins along the way to increase your score and balance.
-5. Hitting an obstacle ends the level, and your score and record are saved.
-6. Use the coins you collect to unlock new characters in the store.
-
-Each world has its own obstacle layout, speed, and atmosphere. Mastering one world does not automatically prepare you for the next; you need to learn its new rhythm.
-
----
-
-## Worlds
-
-The game features eight worlds. Each one has its own visual identity, color palette, base speed, music theme, and obstacle layout.
-
-| # | World | Persian Title |
-|:---:|---|---|
-| 01 | NEON CITY | شهر نئونی |
-| 02 | CYBER STORM | طوفان سایبری |
-| 03 | VOLCANIC RUSH | خروش آتشفشان |
-| 04 | GRAVITY BREAK | شکست جاذبه |
-| 05 | INFINITY CORE | هسته بی‌نهایت |
-| 06 | SKYLINE RIFT | شکاف آسمان |
-| 07 | QUANTUM ABYSS | ژرفای کوانتومی |
-| 08 | NOVA ASCENSION | صعود نُوا |
-
-### 01 · NEON CITY
-
-The starting point of the game and an introduction to its main atmosphere: city streets and buildings illuminated by neon lights. This world is designed to teach the controls and rhythm.
-
-### 02 · CYBER STORM
-
-A digital, high-pressure environment with storm-like effects and cool colors. This world focuses on navigating paths that require faster reactions.
-
-### 03 · VOLCANIC RUSH
-
-A warm world with fiery colors and a sense of pressure and speed. Its palette and music bring more energy than the first two worlds.
-
-### 04 · GRAVITY BREAK
-
-An environment that conveys a sense of weightlessness and instability. The visual design and music create a suspended and unusual atmosphere.
-
-### 05 · INFINITY CORE
-
-The game's energy center, with a repetitive and hypnotic design. The rhythm draws players into a continuous flow.
-
-### 06 · SKYLINE RIFT
-
-A high-altitude world with a wide horizon and glowing rifts. Its atmosphere feels more open while remaining challenging.
-
-### 07 · QUANTUM ABYSS
-
-The deepest and darkest environment in the game, with deep colors and energy effects. This world requires strong focus and precision.
-
-### 08 · NOVA ASCENSION
-
-The final world and the peak of the journey. It combines the experiences of all previous worlds into an energetic ascent.
-
----
-
-## Audio System
-
-All game audio is generated in real time using the **Web Audio API**. The project contains no MP3 or WAV files, which keeps the initial load lightweight and makes the audio fully adjustable through code.
-
-### Audio Layers
-
-| Layer | Purpose |
-|---|---|
-| World music | A dedicated music theme for each of the eight worlds |
-| Gameplay effects | Jumping, collecting coins, and collisions |
-| Interface effects | Clicks and interactions with menus, the store, and settings |
-| Cinematic intro | Dedicated audio for the opening sequence |
-
-### How Audio Is Generated
-
-- Sounds are created using **oscillators**.
-- The shape and intensity of each sound are controlled with **Gain** and time-based envelopes.
-- Each world's music is built from combinations of notes and rhythmic patterns that match the game's rhythm.
-- Players can control audio independently, adjusting music and sound effects separately.
-
-### Browser Note
-
-Modern browsers do not allow audio to start before the user's first interaction. Therefore, audio begins after the first tap or click. This is normal browser behavior.
-
----
-
-## Characters and Store
-
-The game includes 12 selectable characters. Each character has an independent visual design and color scheme.
-
-- Characters change appearance only; they do not affect game difficulty.
-- Special characters can be unlocked in the in-game store using **coins collected during levels**.
-- Unlocked characters remain available permanently and can be selected at any time.
-- The last selected character remains active the next time the game is opened.
-
----
-
-## Progress and Saving
-
-Player data is saved in the browser using **Local Storage**. No account, registration, or internet connection is required.
-
-The following data is saved:
-
-- Best score
-- Level records
-- Coin balance
-- Unlocked characters
-- Selected character
-- Audio and graphics settings
-
-### Things to Know
-
-- Data is stored only in the same browser and on the same device.
-- Clearing browser data or using private browsing may erase progress.
-- Progress is not synchronized between devices or different browsers.
-
----
-
-## Settings
-
-| Setting | Description |
-|---|---|
-| Music | Adjust or disable world music |
-| Sound effects | Independently control jump, coin, and interface sounds |
-| Display quality | Adjust quality for smoother performance on less powerful devices |
-| Effect intensity | Increase or reduce lighting and neon effects |
-
-Settings are saved automatically.
-
----
-
-## Controls
-
-| Action | Desktop | Mobile |
-|---|---|---|
-| Jump | `Space`, `↑`, or `W` | Tap the screen or the jump button |
-| Pause | `Esc` or `P` | Pause button |
-| Resume | `Esc` or `P` | Resume button |
-
----
-
-## Technical Architecture
-
-The project has three separate layers, each maintained in its own file.
-
-### HTML (`index.html`)
-
-Page structure and user interface: main menu, world selection, store, settings, pause screen, and game canvas.
-
-### CSS (`css/style.css`)
-
-Neon appearance, animations, transitions between screens, and responsive layouts for different display sizes.
-
-### JavaScript (`js/game.js`)
-
-The complete game logic, including the following components:
-
-| Component | Responsibility |
-|---|---|
-| State management | Controls screens and game states (menu, gameplay, pause, end) |
-| Game loop | Updates and renders frames with `requestAnimationFrame` |
-| Character physics | Movement, jumping, and gravity |
-| Collision detection | Detects collisions with obstacles and coins |
-| Levels | Obstacle layouts and settings for each world |
-| Scoring | Calculates scores, coins, and records |
-| Input | Keyboard and touch controls |
-| Audio | Generates music and effects with the Web Audio API |
-| Storage | Reads and writes data in Local Storage |
-
-### Rendering
-
-All game elements (character, obstacles, background, coins, and effects) are drawn directly onto **Canvas 2D**. This provides full control over every frame.
-
----
-
-## Repository Structure
+The game is separated into three focused source files:
 
 ```text
 NEON-OVERDRIVE/
-├── index.html        # Interface structure and pages
+│
+├── index.html          # Game document and interface structure
+│
 ├── css/
-│   └── style.css     # Appearance, animations, and responsiveness
+│   └── style.css       # Visual design, layouts and animations
+│
 ├── js/
-│   └── game.js       # Game logic, rendering, and audio
-└── README.md         # Project documentation
+│   └── game.js         # Gameplay, rendering, input, audio and saving
+│
+└── README.md           # Project documentation
 ```
+
+### Source Responsibilities
 
 | File | Responsibility |
 |---|---|
-| `index.html` | Modify the interface structure and components |
-| `css/style.css` | Modify the design and visual effects |
-| `js/game.js` | Modify game logic, levels, and audio |
+| `index.html` | Page metadata, game interface and source loading |
+| `css/style.css` | Neon theme, menus, HUD, animations and responsive styling |
+| `js/game.js` | Game state, zones, physics, collisions, audio, controls and persistence |
 
----
+The separation is intentional: visual changes can be made in CSS without digging through gameplay logic, while the HTML remains focused on the page structure.
 
-## Running and Deployment
+## 🛠️ Technology
 
-### Run Directly
+| Technology | Usage |
+|---|---|
+| HTML5 | Document structure and Canvas element |
+| CSS3 | Interface styling, effects, transitions and responsive layout |
+| Vanilla JavaScript | Gameplay systems and application logic |
+| Canvas 2D | Real-time game rendering |
+| Web Audio API | Browser-generated music and sound effects |
+| Local Storage | Local player progress and settings |
 
-Download the repository and open `index.html` in a modern browser.
+No package installation, build step or external JavaScript framework is required.
 
-### Run Locally with a Web Server
+## ▶ Run Locally
+
+### Option 1 — Open Directly
+
+1. Download or clone this repository.
+2. Open `index.html` in a modern browser.
+3. Start playing.
+
+### Option 2 — Local HTTP Server
+
+From the repository directory, run:
 
 ```bash
 python -m http.server 8000
 ```
 
-Then open:
+Then visit:
 
 ```text
 http://localhost:8000
 ```
 
-### Deploy with GitHub Pages
+## ⌨️ Controls
 
-1. Open the repository's **Settings**.
-2. Open the **Pages** section.
-3. Under Branch, select `main` and the `/ (root)` folder.
-4. Click **Save**.
-5. After a few minutes, the game will be available at:
+| Action | Desktop | Mobile |
+|---|---|---|
+| Jump | `Space`, `↑` or `W` | Tap / on-screen jump control |
+| Pause | `Esc` or `P` | Pause control |
+| Resume | `Esc` or `P` | Resume control |
 
-```text
-https://tahadev24.github.io/NEON-OVERDRIVE/
-```
+Some browser audio features require a first user interaction before playback can begin. Tap or click once if audio does not start immediately.
 
----
+## 💾 Progress & Compatibility
 
-## Troubleshooting
+- Progress and settings are stored locally in the browser.
+- Saved data is tied to the browser and device where the game is played.
+- Clearing browser storage can remove local progress.
+- The game is intended for modern desktop and mobile browsers with Canvas 2D, Web Audio API and Local Storage support.
+- An internet connection is not required for the core game after the project files are available locally.
 
-| Problem | Solution |
-|---|---|
-| No audio | Click or tap the screen once and make sure device audio and in-game audio settings are enabled |
-| The game runs slowly | Reduce display quality and effect intensity in settings |
-| Progress was erased | Browser data may have been cleared, or the game may have been played in private browsing mode |
-| Stylesheet or script does not load | Make sure the `css` and `js` folders are next to `index.html` and the filenames match exactly |
+## 🧩 Development Notes
 
----
+The source is intentionally kept dependency-free and split by responsibility. If you want to modify the project:
 
-## Compatibility
+- Start with `index.html` for page-level structure.
+- Edit `css/style.css` for the visual layer.
+- Work in `js/game.js` for gameplay behavior and systems.
 
-The game is designed for modern browsers that support HTML5 Canvas, the Web Audio API, and Local Storage. It supports keyboard and touch input, and the interface layout adapts to mobile and desktop displays.
+Please report reproducible bugs with the browser/device details and the steps needed to reproduce them.
 
----
-
-## Developer
-
-| | |
-|---|---|
-| Name | Taha Hassarki |
-| GitHub | [TahaDev24](https://github.com/TahaDev24) |
-| Project | NEON OVERDRIVE |
-| Architecture | Client-Side |
-
-> [!NOTE]
-> AI tools were used as assistants during the development of this project.
+## 👨‍💻 Developer
 
 <div align="center">
 
-**NEON OVERDRIVE**
+### TAHA HASSARKI
+
+**Game Developer · Python Developer · Software Creator**
+
+[GitHub Profile](https://github.com/TahaDev24)
+
+<br>
+
+**NEON OVERDRIVE — NEXT GEN**
+
 `FEEL THE BEAT · BREAK THE LIMIT`
 
 </div>
