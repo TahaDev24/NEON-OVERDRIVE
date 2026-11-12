@@ -66,29 +66,46 @@ Previously completed zones can be replayed without paying an entry fee. Some opt
 
 ## 🧭 Project Structure
 
-The game is separated into three focused source files:
+The source is organized into dedicated folders for configuration, gameplay systems, interface code, and visual styling. A standalone build is also included for players who want to launch the game without managing separate assets.
 
 ```text
 NEON-OVERDRIVE/
 │
-├── index.html          # Game document and interface structure
+├── index.html                         # Modular game entry point
+├── NEON-OVERDRIVE-STANDALONE.html     # Single-file version
 │
-├── css/
-│   └── style.css       # Visual design, layouts and animations
+├── css/                               # Separated visual layers
+│   ├── main.css                       # Stylesheet entry point
+│   ├── base.css                       # Global rules and typography
+│   ├── layout.css                     # App shell and canvas layout
+│   ├── hud.css                        # In-game HUD and controls
+│   ├── screens.css                    # Menus and panels
+│   ├── components.css                 # Cards, settings and zones
+│   ├── intro.css                      # Intro and ending cinematic visuals
+│   ├── animations.css                 # Keyframes and motion definitions
+│   ├── effects.css                    # Visual refinements
+│   └── responsive.css                 # Mobile and reduced-motion rules
 │
 ├── js/
-│   └── game.js         # Gameplay, rendering, input, audio and saving
+│   ├── game.js                        # Main game loop and orchestration
+│   ├── data/game-data.js              # Zones, themes and character data
+│   ├── systems/audio.js               # Procedural music and sound effects
+│   └── ui/intro.js                    # Intro cinematic lifecycle
 │
-└── README.md           # Project documentation
+└── README.md                          # Project documentation
 ```
 
 ### Source Responsibilities
 
 | File | Responsibility |
 |---|---|
-| `index.html` | Page metadata, game interface and source loading |
-| `css/style.css` | Neon theme, menus, HUD, animations and responsive styling |
-| `js/game.js` | Game state, zones, physics, collisions, audio, controls and persistence |
+| `index.html` | Game interface and modular asset loading |
+| `NEON-OVERDRIVE-STANDALONE.html` | Complete single-file edition |
+| `css/` | Separated visual layers, animations and responsive rules |
+| `js/game.js` | Main game loop, physics, collisions and progression |
+| `js/data/game-data.js` | Zone and character data |
+| `js/systems/audio.js` | Browser-generated music and sound effects |
+| `js/ui/intro.js` | Intro animation and skip behavior |
 
 The separation is intentional: visual changes can be made in CSS without digging through gameplay logic, while the HTML remains focused on the page structure.
 
@@ -105,12 +122,17 @@ The separation is intentional: visual changes can be made in CSS without digging
 
 No package installation, build step or external JavaScript framework is required.
 
+## ⚡ Choose Your Edition
+
+- **Modular edition:** open `index.html` or serve the repository through a local HTTP server. CSS and JavaScript load from their folders.
+- **Single-file edition:** open `NEON-OVERDRIVE-STANDALONE.html` directly. The complete game styles and scripts are embedded in one HTML file for a quick, no-setup experience.
+
 ## ▶ Run Locally
 
 ### Option 1 — Open Directly
 
 1. Download or clone this repository.
-2. Open `index.html` in a modern browser.
+2. Open `index.html` in a modern browser (or use the standalone HTML file for a one-file launch).
 3. Start playing.
 
 ### Option 2 — Local HTTP Server
