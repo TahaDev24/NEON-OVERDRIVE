@@ -1,0 +1,5 @@
+#app{position:relative;width:100%;height:100%;display:grid;place-items:center;background:radial-gradient(ellipse at 50% -15%,#17244a 0,#080d1c 48%,#03050b 100%)}
+#shell{position:relative;width:min(100vw,1440px);height:min(100dvh,900px);overflow:hidden;background:#070b17;isolation:isolate;border:1px solid #253451;box-shadow:0 0 100px #4258a522}
+#gameCanvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+.vignette{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at center,transparent 48%,#02040a88 100%)}
+.scanlines{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.045;background:repeating-linear-gradient(0deg,transparent 0 3px,#d8faff 4px,transparent 5px);mix-blend-mode:screen}
