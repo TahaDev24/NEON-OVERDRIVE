@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#060811">
+<meta name="description" content="NEON OVERDRIVE NEXT GEN — یک پلتفرمر ریتمیک آفلاین با ده زون و باس نهایی">
+<title>NEON OVERDRIVE — NEXT GEN</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app"><div id="shell">
+<canvas id="gameCanvas" aria-label="محیط بازی NEON OVERDRIVE"></canvas><div class="vignette"></div><div class="scanlines"></div>
+<div id="intro" class="intro-cinematic" aria-label="NEON OVERDRIVE intro">
+  <div class="intro-vignette"></div><div class="intro-grid"></div><div class="intro-beam beam-a"></div><div class="intro-beam beam-b"></div>
+  <div class="intro-orbit orbit-one"></div><div class="intro-orbit orbit-two"></div><div class="intro-orbit orbit-three"></div>
+  <div class="intro-core"><i></i><b></b><em></em></div>
+  <div class="intro-shards" id="introShards"></div>
+  <div class="intro-copy"><div class="intro-kicker">TAHA HESARKI PRESENTS</div><div class="intro-logo">NEON<span>//</span><br>OVERDRIVE</div><div class="intro-rule"><i></i></div><div class="intro-tagline">FEEL THE BEAT · BREAK THE LIMIT</div></div>
+  <div class="intro-loading"><span>INITIALIZING NEON CORE</span><i><b></b></i><strong>10 WORLDS · 01 DESTINY</strong></div>
+  <button class="intro-skip" id="skipIntro">SKIP INTRO ↗</button>
+</div>
+<header id="hud"><div class="brand">NEON<span>//</span>OVERDRIVE</div><div class="hud-center"><div class="zone-label" id="hudZone">ZONE 01</div><div class="zone-name" id="hudZoneName">NEON CITY</div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div></div><div class="hud-right"><div class="hud-chip"><small>SCORE</small><b id="hudScore">00000</b></div><div class="hud-chip"><small>COINS</small><b id="hudCoins">000</b></div><div class="hud-tools"><button id="soundButton" aria-label="موسیقی">♫</button><button id="pauseButton" aria-label="مکث">Ⅱ</button></div></div></header>
+<div id="bossHud"><div class="boss-head">CORE INTEGRITY</div><div class="boss-track"><div class="boss-fill" id="bossFill"></div></div><div class="boss-phase" id="bossPhase">PHASE 01 · THE AWAKENING</div></div>
+<div id="touchControls"><button id="pulseButton">✦ PULSE</button><button id="jumpButton">TAP / JUMP</button></div>
+<div class="toast" id="toast"><b>ZONE 01</b><small>NEON CITY</small></div>
+
+<section class="screen active" id="menuScreen"><div class="panel wide"><div class="menu-layout"><div class="hero-side"><div class="eyebrow">AN ORIGINAL RHYTHM PLATFORMER</div><h1 class="hero-title">NEON<span>//</span><br>OVERDRIVE</h1><p class="subtitle">ریتم را بگیر، از مسیرهای مرگبار عبور کن و ده جهان مستقل را فتح کن. این بار هر زون یک مکانیک تازه دارد؛ مقصد نهایی هم در هسته‌ی نئون منتظر توست.</p><button class="primary big-button" id="continueButton">▶ ادامه مسیر</button><div class="hint">پرش: Space / ↑ / لمس · پالس باس: X / K · مکث: Esc / P</div><div class="feature-strip"><span>10 ZONES</span><span>RHYTHM ENGINE</span><span>1 FINAL BOSS</span><span>OFFLINE</span></div></div><div class="side-panel"><div class="eyebrow">RUNNER PROFILE</div><div class="stats"><div class="stat"><b id="menuClears">0/10</b><small>زون تکمیل‌شده</small></div><div class="stat"><b id="menuCoins">0</b><small>سکه</small></div><div class="stat"><b id="menuBest">0</b><small>بهترین امتیاز</small></div></div><div class="menu-nav"><button id="zonesButton">◈ انتخاب زون</button><button id="skinsButton">▣ شخصیت‌ها</button><button id="shopButton">🛒 فروشگاه</button><button id="settingsButton">⚙ تنظیمات</button><button id="aboutButton">ⓘ درباره</button></div><div class="credit">DEVELOPED BY TAHA HESARKI</div></div></div></div></section>
+
+<section class="screen" id="zonesScreen"><div class="panel xwide"><div class="eyebrow">TEN WORLDS · ONE ASCENSION</div><div class="section-title">انتخاب زون</div><p class="section-sub">فقط زون‌های تکمیل‌شده و زون بعدی قابل ورودند. زون‌های آینده تا تکمیل مسیر قفل می‌مانند.</p><div class="zone-grid" id="zoneGrid"></div><div class="zone-detail"><div class="zone-detail-copy"><b id="selectedZoneTitle">زون ۱ · شهر نئونی</b><small id="selectedZoneDescription">زون بعدی و آماده‌ی بازی · ورود رایگان</small></div><div class="checkpoint-tools"><select id="checkpointSelect" aria-label="نقطه شروع"><option value="0">شروع از ابتدا</option></select><button class="tiny gold" id="unlockCheckpointButton">آزادسازی Checkpoint</button><button class="primary" id="startZoneButton">شروع زون</button></div></div><div class="btn-row"><button class="secondary" data-back="menuScreen">بازگشت به منو</button></div></div></section>
+
+<section class="screen" id="skinsScreen"><div class="panel wide"><div class="eyebrow">CUSTOMIZE YOUR RUNNER</div><div class="section-title">انتخاب شخصیت</div><p class="section-sub">شخصیت‌ها فقط ظاهر، رنگ هسته و رد نوری را تغییر می‌دهند؛ هیچ مزیت ناعادلانه‌ای در فیزیک ندارند.</p><div class="card-grid" id="skinGrid"></div><div class="btn-row"><button class="primary" data-back="menuScreen">تأیید و بازگشت</button></div></div></section>
+
+<section class="screen" id="shopScreen"><div class="panel wide"><div class="eyebrow">NEON MARKET</div><div class="section-title">فروشگاه نئون</div><p class="section-sub">شخصیت‌ها و ظاهرهای ویژه را با سکه‌های داخل بازی آزاد کن.</p><div class="feature-strip"><span>🪙 موجودی: <b id="shopCoins">0</b></span><span>خریدها روی همین دستگاه ذخیره می‌شوند</span></div><div class="card-grid" id="shopGrid"></div><div class="btn-row"><button class="secondary" data-back="menuScreen">بازگشت</button></div></div></section>
+
+<section class="screen" id="settingsScreen"><div class="panel"><div class="eyebrow">TUNE YOUR EXPERIENCE</div><div class="section-title">تنظیمات</div><p class="section-sub">تنظیمات به‌صورت خودکار ذخیره می‌شوند.</p><div class="setting-grid">
+<div class="setting"><div class="checkline"><label for="musicEnabled">موسیقی بازی</label><input type="checkbox" id="musicEnabled" checked></div><small>موسیقی الکترونیک مولد و هماهنگ با BPM هر زون</small></div>
+<div class="setting"><label for="musicVolume">بلندی موسیقی <span id="volumeLabel">45%</span></label><input type="range" id="musicVolume" min="0" max="100" value="45"></div>
+<div class="setting"><div class="checkline"><label for="sfxEnabled">افکت‌های صوتی</label><input type="checkbox" id="sfxEnabled" checked></div><small>پرش، جمع‌آوری سکه، پورتال، برخورد و پالس</small></div>
+<div class="setting"><label for="qualitySelect">کیفیت گرافیک</label><select id="qualitySelect"><option value="high">High · بالا</option><option value="medium">Medium · متوسط</option><option value="low">Low · سبک</option></select></div>
+<div class="setting"><label for="effectsRange">شدت جلوه‌ها <span id="effectsLabel">70%</span></label><input type="range" id="effectsRange" min="0" max="100" value="70"></div>
+<div class="setting"><label>ذخیره‌سازی</label><small>پیشرفت، سکه‌ها، رکوردها، شخصیت‌ها، خریدها، Checkpointها و تنظیمات در حافظه‌ی محلی مرورگر ذخیره می‌شوند. پاک کردن داده‌های مرورگر می‌تواند آن‌ها را حذف کند.</small></div>
+</div><div class="btn-row"><button class="danger" id="resetSettingsButton">بازگردانی تنظیمات</button><button class="secondary" data-back="menuScreen">بازگشت</button></div></div></section>
+
+<section class="screen" id="aboutScreen"><div class="panel"><div class="eyebrow">BEYOND THE NEON</div><div class="section-title">NEON OVERDRIVE</div><div class="info-copy">یک تجربهٔ ریتمیک در دنیایی از نور، سرعت و جاذبه. با زمان‌بندی دقیق بپر، از موانع عبور کن، مسیرهای مخفی را کشف کن و در هر زون با چالش و ضرب‌آهنگی تازه روبه‌رو شو. ده زون با محیط‌ها و مکانیک‌های متفاوت، مسیر را تا نبرد نهایی ادامه می‌دهند.<br><br>موسیقی و جلوه‌های صوتی درون بازی تولید می‌شوند و تمام مراحل برای اجرا به‌صورت آفلاین طراحی شده‌اند.</div><div class="feature-strip"><span>RHYTHM PLATFORMER</span><span>10 ZONES</span><span>WEB / ANDROID</span><span>OFFLINE READY</span></div><div class="about-mark" style="margin-top:22px;text-align:center;direction:ltr;font:900 12px system-ui;letter-spacing:2px;color:#a9c2e8">DEVELOPED BY TAHA HESARKI</div><div class="btn-row"><button class="secondary" data-back="menuScreen">بازگشت</button></div></div></section>
+
+<section class="screen" id="pauseScreen"><div class="panel"><div class="eyebrow">RUN SUSPENDED</div><h2 class="result-title">PAUSED</h2><p class="subtitle">مکث کردی؛ ریتم همین‌جا منتظر می‌ماند.</p><div class="btn-row"><button class="primary" id="resumeButton">ادامه بازی</button><button class="secondary" id="pauseMenuButton">خروج به منو</button></div></div></section>
+
+<section class="screen" id="resultScreen"><div class="panel"><div class="result-mark" id="resultMark">✦</div><div class="eyebrow" id="resultEyebrow">ZONE CLEAR</div><h2 class="result-title" id="resultTitle">ZONE <span>CLEAR</span></h2><p class="subtitle" id="resultMessage">زون را با موفقیت تکمیل کردی.</p><div class="result-grid"><div class="stat"><b id="resultScore">0</b><small>امتیاز این ران</small></div><div class="stat"><b id="resultBest">0</b><small>بهترین امتیاز</small></div><div class="stat"><b id="resultCoins">0</b><small>سکه‌ی این ران</small></div></div><div class="btn-row"><button class="primary" id="resultPrimaryButton">زون بعدی</button><button class="secondary" id="resultRetryButton">تلاش دوباره</button><button class="secondary" id="resultMenuButton">منوی اصلی</button></div></div></section>
+
+<div id="finalCinematic"><div class="final-rings"></div><div class="final-copy"><small>FINAL SIGNAL RESTORED</small><strong>ASCENSION</strong><i>YOU CONQUERED THE NEON</i></div></div>
+</div></div>
+<script src="js/game.js"></script>
+</body></html>
