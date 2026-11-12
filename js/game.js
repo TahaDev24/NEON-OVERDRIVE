@@ -1,3 +1,6 @@
+import { ZONES, SKINS } from './data/game-data.js';
+import { AudioEngine } from './systems/audio.js';
+import { playIntro } from './ui/intro.js';
 (()=>{'use strict';
 // -----------------------------------------------------------------------------
 // NEON OVERDRIVE NEXT GEN — standalone single-file game engine
@@ -7,32 +10,8 @@ const SAVE_KEY='neonOverdriveNextGenV2', LEGACY_KEY='neonOverdriveUltimateV1';
 const DEFAULT_SETTINGS={music:true,volume:45,sfx:true,quality:'medium',effects:70};
 const CHECKPOINT_COSTS={34:30,67:48};
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), lerp=(a,b,t)=>a+(b-a)*t, rand=(a,b)=>a+Math.random()*(b-a);
-const ZONES=[
- {name:'NEON CITY',fa:'شهر نئونی',theme:'city',color:'#58eaff',accent:'#478bff',bg1:'#07182c',bg2:'#091027',bpm:126,speed:330,length:7200,motif:[0,5,7,10,7,5,3,5,0,5,10,12,10,7,5,3],wave:'triangle',mechanic:'دروازه‌های نوری زمان‌بندی‌شده و مسیرهای مرتفع',events:[['spike',530],['double',1110],['saw',1740],['laser',2390],['platform',3030],['routeFork',3370],['pit',3740],['drone',4440],['spring',5100],['triple',5790],['phaseGap',6530],['saw',6900]],secrets:[[3380,0.42]]},
- {name:'CYBER STORM',fa:'طوفان سایبری',theme:'storm',color:'#d875ff',accent:'#ff5ab9',bg1:'#1b0d35',bg2:'#0b102a',bpm:142,speed:348,length:7600,motif:[0,7,9,7,5,2,5,9,12,9,7,5,2,7,5,2],wave:'square',mechanic:'لیزرهای پالسی، پهپادهای متحرک و موج‌های الکتریکی',events:[['laser',560],['drone',1190],['double',1810],['crusher',2490],['pit',3190],['platform',3900],['laser',4610],['saw',5300],['triple',6030],['drone',6740],['laser',7280]],secrets:[[4180,0.38]]},
- {name:'MAGMA CIRCUIT',fa:'مدار گدازه',theme:'magma',color:'#ff884f',accent:'#ffd05b',bg1:'#35130f',bg2:'#190b16',bpm:148,speed:360,length:7900,motif:[0,3,7,10,7,6,5,3,0,3,8,10,12,10,8,5],wave:'sawtooth',mechanic:'زمین‌های ناپایدار، شکاف‌های آتشفشانی و فنرهای حرارتی',events:[['phaseGap',580],['spike',1260],['crusher',1940],['saw',2630],['pit',3310],['spring',3970],['laser',4660],['platform',5350],['double',6040],['phaseGap',6720],['drone',7410]],secrets:[[4580,0.35]]},
- {name:'GRAVITY BREAK',fa:'شکست جاذبه',theme:'space',color:'#67efc5',accent:'#53aaff',bg1:'#061d2a',bg2:'#090d25',bpm:136,speed:355,length:8200,motif:[0,4,7,11,9,7,4,2,0,7,9,11,14,11,9,4],wave:'sine',mechanic:'پورتال‌های جاذبه و تغییر سطح حرکت بین زمین و سقف',events:[['gravityPortal',650],['spike',1210],['saw',1900],['laser',2560],['gravityPortal',3190],['pit',3870],['modePortal',4550],['drone',5220],['gravityPortal',5880],['double',6540],['crusher',7210],['platform',7800]],secrets:[[4900,0.4]]},
- {name:'SKYLINE RIFT',fa:'شکاف آسمان',theme:'skyline',color:'#63dcff',accent:'#a77cff',bg1:'#071a3b',bg2:'#10102b',bpm:154,speed:374,length:8500,motif:[0,5,9,12,9,7,5,2,0,7,10,14,12,10,7,5],wave:'triangle',mechanic:'سکوهای شناور، مسیرهای مرتفع و پهپادهای گشت‌زن',events:[['platform',540],['drone',1190],['spike',1850],['laser',2520],['platform',3200],['routeFork',3500],['pit',3890],['saw',4570],['modePortal',5240],['crusher',5910],['double',6590],['platform',7270],['drone',7950]],secrets:[[3530,0.36]]},
- {name:'QUANTUM ABYSS',fa:'ژرفای کوانتومی',theme:'abyss',color:'#b38cff',accent:'#41f2cb',bg1:'#100b29',bg2:'#050817',bpm:160,speed:382,length:8800,motif:[0,6,8,11,8,6,1,5,0,8,11,13,11,8,6,1],wave:'sine',mechanic:'سکوهای فازدار، شکاف‌های متناوب و حلقه‌های جهش',events:[['phaseGap',510],['platform',1170],['orb',1840],['saw',2510],['laser',3190],['phaseGap',3870],['gravityPortal',4550],['platform',5230],['crusher',5910],['orb',6590],['pit',7270],['phaseGap',7950],['drone',8470]],secrets:[[5500,0.34]]},
- {name:'PULSE FOUNDRY',fa:'کارخانه ضربان',theme:'foundry',color:'#ffbd68',accent:'#ff5e8b',bg1:'#25131c',bg2:'#10101c',bpm:166,speed:392,length:9000,motif:[0,3,7,8,10,8,7,3,0,5,8,10,12,10,8,5],wave:'square',mechanic:'خردکن‌های صنعتی، دیوارهای متحرک و لیزرهای ریتمیک',events:[['crusher',530],['saw',1200],['laser',1870],['platform',2540],['crusher',3220],['double',3900],['phaseGap',4580],['drone',5260],['crusher',5940],['laser',6620],['pit',7300],['triple',7980],['saw',8660]],secrets:[[6150,0.37]]},
- {name:'ECHO RUINS',fa:'ویرانه‌های پژواک',theme:'ruins',color:'#8df1bd',accent:'#83a5ff',bg1:'#0b211f',bg2:'#080e20',bpm:172,speed:398,length:9300,motif:[0,4,7,9,7,4,2,4,0,7,9,12,9,7,4,2],wave:'triangle',mechanic:'سازه‌های باستانی، جاذبه‌ی متناوب و مسیرهای پنهان',events:[['spike',500],['gravityPortal',1160],['platform',1830],['saw',2500],['phaseGap',3170],['orb',3840],['routeFork',4140],['gravityPortal',4510],['crusher',5180],['laser',5850],['pit',6520],['platform',7190],['triple',7860],['drone',8530],['saw',9000]],secrets:[[4220,0.4]]},
- {name:'SINGULARITY RUN',fa:'عبور از تکینگی',theme:'singularity',color:'#d58aff',accent:'#58edff',bg1:'#100a2b',bg2:'#040611',bpm:180,speed:408,length:9700,motif:[0,7,10,12,15,12,10,7,5,10,14,17,15,12,10,7],wave:'sawtooth',mechanic:'پرواز کنترل‌شده، شکاف‌های فضایی و جاذبه‌ی دوگانه',events:[['modePortal',480],['drone',1120],['laser',1790],['gravityPortal',2460],['pit',3130],['modePortal',3800],['saw',4470],['platform',5140],['laser',5810],['gravityPortal',6480],['routeFork',6810],['triple',7150],['crusher',7820],['phaseGap',8490],['modePortal',9160]],secrets:[[6800,0.36]]},
- {name:'CORE NEXUS',fa:'هسته نهایی',theme:'core',color:'#76f6ff',accent:'#ff5ebf',bg1:'#07172c',bg2:'#150b2a',bpm:132,speed:372,length:4200,bossStart:3650,motif:[0,7,10,12,10,7,5,10,14,12,10,7,5,7,12,15],wave:'sine',mechanic:'ورود به اتاق هسته و نبرد چندفازه با نگهبان نئون',events:[['double',560],['laser',1190],['gravityPortal',1840],['saw',2470],['platform',3110]],secrets:[[2760,0.38]]}
-];
-const SKINS=[
- {name:'NEON',fa:'نئون',body:'#efffff',core:'#38dff0',accent:'#ff5ac8',trail:'#66f4ff',shape:'cube'},
- {name:'BLAZE',fa:'آتش',body:'#fff0db',core:'#ff7138',accent:'#ffe45c',trail:'#ff884a',shape:'diamond'},
- {name:'NOVA',fa:'نُوا',body:'#f3edff',core:'#936cff',accent:'#ff6bd5',trail:'#b38cff',shape:'star'},
- {name:'EMERALD',fa:'زمرد',body:'#e4fff1',core:'#28d99a',accent:'#65fff0',trail:'#43e8aa',shape:'hex'},
- {name:'GOLD',fa:'طلایی',body:'#fff8d9',core:'#f5c542',accent:'#ff8d3d',trail:'#f5c542',shape:'cube'},
- {name:'GLITCH',fa:'گلیچ',body:'#fff',core:'#ff4fd8',accent:'#5cf4ff',trail:'#ff4fd8',shape:'split'},
- {name:'GHOST',fa:'شبح',body:'#e2f0ff',core:'#86b7ff',accent:'#d6a6ff',trail:'#9bd1ff',shape:'circle'},
- {name:'VOID',fa:'خلأ',body:'#d7d1ff',core:'#7666d9',accent:'#f4f1ff',trail:'#9b79ff',shape:'void'},
- {name:'PHANTOM',fa:'شبح‌رو',body:'#e5fbff',core:'#56dfff',accent:'#fff',trail:'#56dfff',shape:'circle',price:180},
- {name:'SOLARIS',fa:'خورشیدی',body:'#fff1b8',core:'#ff9d32',accent:'#fff4a3',trail:'#ffb23e',shape:'star',price:280},
- {name:'CYBER-X',fa:'سایبر ایکس',body:'#f4dfff',core:'#e34cff',accent:'#58f5ff',trail:'#e34cff',shape:'split',price:420},
- {name:'OBLIVION',fa:'اُبلیویِن',body:'#d9d5ff',core:'#6655ff',accent:'#ff4fc8',trail:'#8e73ff',shape:'void',price:600}
-];
+
+
 function freshState(){return{version:2,coins:0,best:0,clearedZone:-1,skin:0,unlockedSkins:[0,1,2,3,4,5,6,7],checkpoints:{},records:{},settings:{...DEFAULT_SETTINGS},runs:0,achievements:[]}}
 function safeNumber(v,min,max,fallback=0){const n=Number(v);return Number.isFinite(n)?clamp(Math.floor(n),min,max):fallback}
 function loadState(){
@@ -45,22 +24,8 @@ function loadState(){
 const loaded=loadState();let state=loaded.state;
 function saveState(){try{localStorage.setItem(SAVE_KEY,JSON.stringify(state));return true}catch(e){showToast('SAVE WARNING','BROWSER STORAGE IS FULL OR BLOCKED');return false}}
 
-class AudioEngine{
- constructor(){this.ctx=null;this.master=null;this.fx=null;this.timer=null;this.zoneIndex=-1;this.step=0;this.next=0;this.bossMode=false}
- init(){if(this.ctx)return;const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;try{this.ctx=new AC();this.master=this.ctx.createGain();this.master.gain.value=state.settings.music?state.settings.volume/100:0;this.master.connect(this.ctx.destination);this.fx=this.ctx.createGain();this.fx.gain.value=.72;this.fx.connect(this.ctx.destination)}catch(e){this.ctx=null}}
- start(i){this.init();if(!this.ctx)return;this.ctx.resume().catch(()=>{});if(this.timer)clearInterval(this.timer);this.zoneIndex=i;this.bossMode=false;this.step=0;this.next=this.ctx.currentTime+.07;this.master.gain.setTargetAtTime(state.settings.music?state.settings.volume/100:0,this.ctx.currentTime,.06);this.timer=setInterval(()=>this.schedule(),25)}
- schedule(){if(!this.ctx||!game.running||game.paused||!state.settings.music)return;const z=ZONES[this.zoneIndex];if(!z)return;const beat=60/z.bpm,stepDur=beat/2,horizon=this.ctx.currentTime+.13;while(this.next<horizon){this.playStep(this.step,this.next,z);this.next+=stepDur;this.step=(this.step+1)%16}}
- tone(type,freq,t,dur,vol,slide=0,bus=this.master){if(!this.ctx||!bus)return;try{const o=this.ctx.createOscillator(),g=this.ctx.createGain();o.type=type;o.frequency.setValueAtTime(Math.max(20,freq),t);if(slide)o.frequency.exponentialRampToValueAtTime(Math.max(20,freq+slide),t+dur);g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(vol,t+.009);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(g);g.connect(bus);o.start(t);o.stop(t+dur+.02)}catch(e){}}
- noise(t,dur,vol,bus=this.master){if(!this.ctx||!bus)return;try{const n=this.ctx.createBufferSource(),buf=this.ctx.createBuffer(1,Math.floor(this.ctx.sampleRate*dur),this.ctx.sampleRate),a=buf.getChannelData(0);for(let i=0;i<a.length;i++)a[i]=Math.random()*2-1;n.buffer=buf;const f=this.ctx.createBiquadFilter();f.type='highpass';f.frequency.value=2600;const g=this.ctx.createGain();g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(vol,t+.004);g.gain.exponentialRampToValueAtTime(.0001,t+dur);n.connect(f);f.connect(g);g.connect(bus);n.start(t);n.stop(t+dur)}catch(e){}}
- playStep(s,t,z){if(this.bossMode){const motif=[0,3,7,10,12,10,7,15,0,5,10,14,12,10,5,3],note=motif[s%motif.length],freq=82.41*Math.pow(2,note/12);if(s%4===0){this.tone('sine',42,t,.24,.38,-18);this.tone('triangle',92,t,.12,.15,-35)}if(s%8===4)this.noise(t,.14,.17);if(s%2===0)this.noise(t,.032,.055);if(s%4===2)this.tone('square',74,t,.07,.075,-24);this.tone(s%4===0?'sawtooth':'triangle',freq,t,.17,.095);if(s%8===7)this.tone('sine',freq*2,t,.12,.045);return}const note=z.motif[s%z.motif.length],freq=164.81*Math.pow(2,note/12);if(s%4===0){this.tone('sine',z.theme==='magma'?58:48,t,.19,.3,-25);this.tone('triangle',105,t,.11,.11,-35)}if(s%8===4)this.noise(t,.105,.12);if(s%2===0)this.noise(t,.028,.035);if(s%4===2)this.tone('square',92,t,.045,.045,-20);this.tone(z.wave,freq,t,.12,z.theme==='abyss'?.075:.065)}
- setBossMode(){if(!this.ctx)return;this.bossMode=true;this.step=0;this.next=this.ctx.currentTime+.06}
- sfx(kind){if(!state.settings.sfx)return;this.init();if(!this.ctx)return;this.ctx.resume().catch(()=>{});const t=this.ctx.currentTime;if(kind==='jump')this.tone('sine',390,t,.12,.13,250,this.fx);if(kind==='coin'){this.tone('sine',880,t,.1,.14,420,this.fx);this.tone('sine',1320,t+.06,.12,.08,260,this.fx)}if(kind==='portal')this.tone('sawtooth',230,t,.28,.1,560,this.fx);if(kind==='hit'){this.noise(t,.2,.2,this.fx);this.tone('sawtooth',125,t,.2,.09,-60,this.fx)}if(kind==='pulse'){this.tone('triangle',640,t,.14,.15,550,this.fx);this.tone('sine',990,t+.04,.17,.08,250,this.fx)}if(kind==='clear'){[523,659,784,1046].forEach((f,i)=>this.tone('sine',f,t+i*.12,.5,.1,90,this.fx))}}
- setMusic(v){this.init();if(this.ctx&&this.master){this.master.gain.setTargetAtTime(v?state.settings.volume/100:0,this.ctx.currentTime,.07);if(v)this.next=this.ctx.currentTime+.06}}
- setVolume(v){this.init();if(this.ctx&&this.master&&state.settings.music)this.master.gain.setTargetAtTime(v/100,this.ctx.currentTime,.06)}
- pause(){if(this.timer){clearInterval(this.timer);this.timer=null}if(this.ctx&&this.master)this.master.gain.setTargetAtTime(0,this.ctx.currentTime,.04)}
- resume(){if(this.ctx&&this.master){if(state.settings.music)this.master.gain.setTargetAtTime(state.settings.volume/100,this.ctx.currentTime,.06);this.next=this.ctx.currentTime+.06;if(!this.timer)this.timer=setInterval(()=>this.schedule(),25)}}
-}
-const audio=new AudioEngine();
+
+const audio=new AudioEngine({getState:()=>state,getGame:()=>game,zones:ZONES});
 
 class InputManager{
  constructor(){this.held=false;this.pointer=null;this.bind()}
@@ -194,7 +159,7 @@ function bindUI(){
  $('musicEnabled').onchange=e=>{state.settings.music=e.target.checked;audio.setMusic(e.target.checked);saveState();updateMenu()};$('musicVolume').oninput=e=>{state.settings.volume=Number(e.target.value);$('volumeLabel').textContent=e.target.value+'%';audio.setVolume(state.settings.volume);saveState()};$('sfxEnabled').onchange=e=>{state.settings.sfx=e.target.checked;saveState()};$('qualitySelect').onchange=e=>{state.settings.quality=e.target.value;resize();saveState()};$('effectsRange').oninput=e=>{state.settings.effects=Number(e.target.value);$('effectsLabel').textContent=e.target.value+'%';saveState()};$('resetSettingsButton').onclick=()=>{state.settings={...DEFAULT_SETTINGS};saveState();openSettings();resize();audio.setMusic(state.settings.music)};
  $('skipIntro').onclick=()=>{$('intro').classList.add('leaving')};
 }
-function playIntro(){const el=$('intro');if(!el)return;const host=$('introShards');for(let i=0;i<34;i++){const shard=document.createElement('i');shard.className='intro-shard';shard.style.setProperty('--x',(Math.random()*100)+'%');shard.style.setProperty('--y',(35+Math.random()*65)+'%');shard.style.setProperty('--r',(Math.random()*100-50)+'deg');shard.style.setProperty('--d',(1.8+Math.random()*2.4)+'s');shard.style.setProperty('--delay',(1.2+Math.random()*2.5)+'s');shard.style.setProperty('--dx',(Math.random()*180-90)+'px');host.appendChild(shard)}const close=()=>{if(!el.classList.contains('leaving'))el.classList.add('leaving')};$('skipIntro').addEventListener('click',close,{once:true});el.addEventListener('animationend',e=>{if(e.animationName==='introExit')el.remove()});window.setTimeout(close,7200)}
+
 function init(){resize();game.player=makePlayer();bindUI();updateMenu();buildShopGrid();$('musicEnabled').checked=state.settings.music;$('musicVolume').value=state.settings.volume;$('sfxEnabled').checked=state.settings.sfx;$('qualitySelect').value=state.settings.quality;$('effectsRange').value=state.settings.effects;$('volumeLabel').textContent=state.settings.volume+'%';$('effectsLabel').textContent=state.settings.effects+'%';if(loaded.migrated){saveState();showToast('SAVE MIGRATED','OLD PROFILE IMPORTED · PROGRESSION RESET')}window.addEventListener('resize',resize);game.lastFrame=performance.now();game.raf=requestAnimationFrame(frame);playIntro()}
 init();
 })();
