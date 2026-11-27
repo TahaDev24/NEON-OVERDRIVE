@@ -1,0 +1,9 @@
+import {WIDTH,HEIGHT,COLORS} from '../core/config.js';
+export function renderWorld(ctx,state){const{player,level,zone,coins,camera}=state;ctx.clearRect(0,0,WIDTH,HEIGHT);const g=ctx.createLinearGradient(0,0,0,HEIGHT);g.addColorStop(0,'#090d22');g.addColorStop(1,'#090817');ctx.fillStyle=g;ctx.fillRect(0,0,WIDTH,HEIGHT);ctx.save();ctx.translate(-camera,0);
+ctx.strokeStyle='#00e5ff16';for(let x=Math.floor(camera/60)*60;x<camera+WIDTH;x+=60){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,HEIGHT);ctx.stroke()}for(let y=60;y<HEIGHT;y+=60){ctx.beginPath();ctx.moveTo(camera,y);ctx.lineTo(camera+WIDTH,y);ctx.stroke()}
+for(const p of level.platforms){ctx.fillStyle='#131b38';ctx.fillRect(p.x,p.y,p.w,p.h);ctx.fillStyle=COLORS.cyan;ctx.fillRect(p.x,p.y,p.w,3)}
+for(const h of level.hazards){ctx.shadowBlur=18;ctx.shadowColor=COLORS.pink;ctx.fillStyle=COLORS.pink;ctx.beginPath();ctx.moveTo(h.x,h.y+h.h);ctx.lineTo(h.x+h.w/2,h.y);ctx.lineTo(h.x+h.w,h.y+h.h);ctx.fill();ctx.shadowBlur=0}
+for(const c of level.pickups){if(c.taken)continue;ctx.shadowBlur=16;ctx.shadowColor='#ffe66d';ctx.strokeStyle='#ffe66d';ctx.lineWidth=3;ctx.beginPath();ctx.arc(c.x,c.y,c.r,0,Math.PI*2);ctx.stroke();ctx.shadowBlur=0}
+if(level.boss){ctx.shadowBlur=24;ctx.shadowColor=COLORS.pink;ctx.fillStyle=COLORS.pink;ctx.fillRect(level.boss.x,level.boss.y,level.boss.w,level.boss.h);ctx.fillStyle='#fff';ctx.fillRect(level.boss.x+12,level.boss.y+25,18,8);ctx.fillRect(level.boss.x+60,level.boss.y+25,18,8);ctx.shadowBlur=0}
+ctx.shadowBlur=20;ctx.shadowColor=COLORS.cyan;ctx.fillStyle=COLORS.cyan;ctx.fillRect(player.x,player.y,player.w,player.h);ctx.fillStyle='#06101b';ctx.fillRect(player.x+6,player.y+9,5,5);ctx.fillRect(player.x+17,player.y+9,5,5);ctx.shadowBlur=0;ctx.restore();
+ctx.fillStyle='#91a2c9';ctx.font='600 13px Orbitron,Arial';ctx.fillText('ZONE '+String(zone).padStart(2,'0')+' / 10',24,30);ctx.fillStyle=COLORS.cyan;ctx.fillRect(24,42,Math.max(0,Math.min(1,player.x/level.goal))*180,3)}
