@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700&display=swap');
+:root{color-scheme:dark;--cyan:#00e5ff;--pink:#ff2d95;--violet:#7c4dff;--bg:#070914;--text:#f3f6ff}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:radial-gradient(ellipse at 50% 0,#151632 0,#070914 60%);color:var(--text);font-family:Rajdhani,Arial,sans-serif}
+body{display:grid;place-items:center;padding:clamp(10px,3vw,32px)}.shell{width:min(1120px,100%);margin:auto}
+.top,footer{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 2px;text-transform:uppercase;letter-spacing:2px;font-size:13px;color:#8c9ab8}
+.brand{font:800 18px Orbitron,sans-serif;color:#f4f7ff;text-decoration:none;letter-spacing:1px}.brand span{color:var(--cyan);margin-left:8px}.status{display:flex;gap:24px;color:var(--cyan);font:600 12px Orbitron,sans-serif}
+.stage-wrap{position:relative;overflow:hidden;border:1px solid #293052;border-radius:18px;background:#080b1b;box-shadow:0 0 0 1px #00e5ff12,0 25px 90px #0008,0 0 45px #00e5ff0b}
+canvas{display:block;width:100%;height:auto;aspect-ratio:16/9;touch-action:none}
+.overlay{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(90deg,#060817ee,#080a18aa 65%,#080a1800);transition:opacity .35s,visibility .35s}.overlay.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.panel{width:min(520px,90%);padding:clamp(18px,4vw,48px)}.eyebrow{font:600 11px Orbitron,sans-serif;letter-spacing:4px;color:var(--cyan)}h1{font:900 clamp(32px,6vw,68px)/.98 Orbitron,sans-serif;letter-spacing:-2px;margin:18px 0}h1 em{font-style:normal;color:var(--cyan);text-shadow:0 0 25px #00e5ff55}.panel p:not(.eyebrow){max-width:350px;color:#aab6d2;font-size:18px}
+button{font:800 13px Orbitron,sans-serif;letter-spacing:2px;cursor:pointer;color:#050815;background:var(--cyan);border:0;border-radius:4px;padding:16px 24px;box-shadow:0 0 22px #00e5ff35;transition:transform .2s,box-shadow .2s}button:hover{transform:translateY(-2px);box-shadow:0 0 30px #00e5ff77}button span{margin-left:24px}.hint{font-size:11px!important;letter-spacing:1px;margin-top:25px!important}
+footer{font-size:11px}.mobile-controls{display:none;justify-content:center;gap:16px;padding-top:14px}.mobile-controls button{width:64px;height:54px;padding:0;background:#0d1730;color:var(--cyan);border:1px solid #00e5ff55}
+@media(max-width:640px){.top{padding:10px 0}.brand{font-size:13px}.status{gap:10px;font-size:10px}footer{font-size:9px;letter-spacing:1px}.mobile-controls{display:flex}.panel{padding:12px}.panel p:not(.eyebrow){font-size:15px}.hint{display:none}}
