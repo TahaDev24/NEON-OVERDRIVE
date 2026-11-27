@@ -1,29 +1,29 @@
 # NEON OVERDRIVE — NEXT GEN
 
 <p align="center"><img src="assets/banner.svg" alt="NEON OVERDRIVE — NEXT GEN" width="100%"></p>
-<p align="center"><strong>A neon rhythm-platformer built for the browser.</strong><br>Precision movement · Reactive worlds · Boss encounters</p>
+<p align="center"><strong>A neon arcade platformer for modern browsers.</strong><br>Precision movement · Neon worlds · Final-zone boss</p>
 <p align="center">
 <img src="https://img.shields.io/badge/Platform-Web-00E5FF?style=for-the-badge&logo=html5&logoColor=white" alt="Web">
-<img src="https://img.shields.io/badge/Engine-Canvas%202D-7C4DFF?style=for-the-badge" alt="Canvas 2D">
-<img src="https://img.shields.io/badge/Audio-Web%20Audio-FF2D95?style=for-the-badge" alt="Web Audio">
+<img src="https://img.shields.io/badge/Renderer-Canvas%202D-7C4DFF?style=for-the-badge" alt="Canvas 2D">
+<img src="https://img.shields.io/badge/Language-JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
 </p>
 
 ---
 
 ## Overview
 
-NEON OVERDRIVE — NEXT GEN is a fast-paced neon platform game featuring zone progression, unlockable content, touch and keyboard controls, local progress, and a final-zone boss.
+NEON OVERDRIVE — NEXT GEN is a lightweight browser platformer with sequential zone progression, keyboard and touch controls, collectibles, hazards, local progress, and a boss in the final zone.
 
 ## Features
 
-- 10 progression zones
-- 12 character skins
+- 10 sequential zones
 - Canvas 2D rendering
 - Keyboard and mobile touch input
 - Local save data
-- Collectibles, hazards and checkpoints
-- Boss encounter in the final zone
-- Standalone HTML release build
+- Collectibles and obstacle collisions
+- Final-zone boss encounter
+- Responsive interface
+- Bundled standalone HTML release
 
 ## Play
 
@@ -52,9 +52,9 @@ NEON-OVERDRIVE/
 └── package.json
 ```
 
-## Run
+## Run locally
 
-Open `index.html` in a modern browser. For development, install Node.js and run:
+Open `index.html` in a current browser. For development builds, install Node.js and run:
 
 ```bash
 npm install
@@ -62,7 +62,7 @@ npm run check
 npm run build
 ```
 
-The standalone build is written to `release/NEON_OVERDRIVE_NEXT_GEN.html`.
+The standalone build is generated at `release/NEON_OVERDRIVE_NEXT_GEN.html`.
 
 ## Controls
 
@@ -70,11 +70,11 @@ The standalone build is written to `release/NEON_OVERDRIVE_NEXT_GEN.html`.
 |---|---|---|
 | Move | Arrow keys / A-D | Direction controls |
 | Jump | Space / W / Up | Jump button |
-| Pause | Escape / P | Pause control |
+| Pause | Escape / P | Pause key |
 
 ## Progression
 
-Zone 01 is the starting zone. Clearing a zone unlocks the next zone in sequence. Progress is stored locally in the browser.
+Zone 01 is available at the start. Clearing a zone unlocks the next zone in sequence. Progress is saved locally in the browser.
 
 ## Credits
 
