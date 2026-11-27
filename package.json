@@ -2,7 +2,8 @@
   "name": "neon-overdrive-next-gen",
   "version": "2.0.0",
   "private": true,
-  "description": "Neon rhythm-platformer for modern browsers",
+  "type": "module",
+  "description": "Neon arcade platformer for modern browsers",
   "scripts": {
     "check": "node tools/check.mjs",
     "build": "node tools/build.mjs"
